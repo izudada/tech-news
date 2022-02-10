@@ -12,3 +12,15 @@ max_id_url = base_url + 'maxitem.json'
 #         print(i)
 #     return "Done"
 
+@shared_task(bind=True)
+def published_news(self):
+    response = requests.get(max_id_url)
+    lower_bound = 1
+    max_id = int(response.text)
+    for i in range(lower_bound, lower_bound + 10):
+
+        request_next_100_news = requests.get(base_url + f'item/{i}.json?print=pretty')
+        print(request_next_100_news.text)
+        lower_bound += 100
+
+    return 'Done'
