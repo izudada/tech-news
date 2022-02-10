@@ -14,10 +14,14 @@ max_id_url = base_url + 'maxitem.json'
 
 @shared_task(bind=True)
 def published_news(self):
+    """
+        A task/job to get news from hackers news using their items endpoint/news ID,
+        from ID 1 up to the mad_id.
+    """
     response = requests.get(max_id_url)
     lower_bound = 1
     max_id = int(response.text)
-    
+
     if lower_bound < max_id:
         for i in range(lower_bound, lower_bound + 10):
 
