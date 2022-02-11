@@ -23,7 +23,7 @@ def published_news(self):
     max_id = int(response.text)
 
     if lower_bound < max_id:
-        for i in range(lower_bound, lower_bound + 10):
+        for i in range(lower_bound, lower_bound + 100):
 
             request_next_100_news = requests.get(base_url + f'item/{i}.json?print=pretty')
             print(request_next_100_news.text)
